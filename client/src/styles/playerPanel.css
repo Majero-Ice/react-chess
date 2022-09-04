@@ -1,0 +1,21 @@
+.player__panel{
+
+    margin-bottom: 50px;
+    width: calc(64px *8);
+
+
+
+}
+.enemy{
+
+    width: calc(64px *8);
+
+
+}
+.player__name{
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 25px;
+
+}
+

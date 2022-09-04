@@ -1,0 +1,44 @@
+.button{
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    transition: .15s background-color ease-in ;
+}
+.primary{
+    background-color: #006fff;
+    margin-top: 25px;
+}
+.primary:hover{
+    background-color: #2784ff;
+
+}
+
+.white{
+    background-color: #fff;
+    color: #000;
+    margin-bottom: 25px;
+}
+.white:hover{
+    background-color: #e7e7e7;
+}
+.white{
+    background-color: #fff;
+    outline:3px solid black;
+}
+.white:hover{
+    background-color: #e7e7e7;
+}
+.black{
+    background-color: #000;
+
+}
+.black:hover{
+    background-color: #3f3f3f;
+}
