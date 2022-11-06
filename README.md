@@ -2,6 +2,8 @@
 
 Simple chess using React and TypeScript.
 It is possible to play offline now and online in the future (you can see a sample online logic on localhost now)
+
+
 Here is the link for offline versions
 https://react-chess-e681c.web.app/
 
