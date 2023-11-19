@@ -1,0 +1,57 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.heading{
+    font-size: 35px;
+    text-align: center;
+    font-weight: 700;
+    padding-bottom: 50px;
+}
+
+.loader {
+    display: inline-block;
+    width: 160px;
+    height: 160px;
+    position: relative;
+
+    div {
+        display: inline-block;
+        position: absolute;
+        left: 16px;
+        width: 32px;
+        background: #cef;
+        animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+
+        &:nth-child(1) {
+            left: 16px;
+            animation-delay: -0.24s;
+        }
+        &:nth-child(2) {
+            left: 64px;
+            animation-delay: -0.12s;
+        }
+        &:nth-child(3) {
+            left: 112px;
+            animation-delay: 0;
+        }
+    }
+
+}
+
+
+
+
+@keyframes loader {
+    0% {
+        top: 16px;
+        height: 128px;
+    }
+    50%, 100% {
+        top: 48px;
+        height: 64px;
+    }
+}

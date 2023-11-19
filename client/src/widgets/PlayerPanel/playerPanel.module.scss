@@ -1,0 +1,59 @@
+@mixin playerPanel($user-or-opponent,$top-or-bottom){
+
+    .#{$user-or-opponent}{
+        position: absolute;
+        #{$top-or-bottom}:0;
+        
+        height: 120px;
+        width: calc(64px*8);
+    
+        
+    }
+}
+
+.figureImg{
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+}
+
+
+
+.playerName{
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 25px;
+
+}
+
+.playerFigures{
+    margin-top: 15px;
+    height: 39px;
+    width: 100%;
+    display: flex; 
+    
+    
+    
+}
+
+.playerFigure{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+
+    span{
+        font-weight: bold;
+        font-size: 35px;
+    }
+}
+
+.empty{
+    opacity: 0;
+}
+
+
+
+@include playerPanel('user', bottom);
+@include playerPanel('opponent',top);
+
+

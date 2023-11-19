@@ -1,0 +1,39 @@
+
+
+@mixin button($button-type,$dark-color,$light-color){
+    .#{$button-type}{
+        background-color: $dark-color;
+
+        &:hover{
+            background-color: $light-color;
+        }
+        &:active{
+            background-color: $dark-color;
+        }
+    }
+}
+
+.button{
+    padding: 15px;
+    margin-top: 15px;
+    display: block;
+
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    outline:none;
+
+    border-radius: 25px;
+    border:none;
+    transition: .1s background-color ease-in;
+    
+    &:focus{
+        border:none;
+        outline: none;
+    }
+    
+
+}
+
+@include button('primary',#0066ff,#3080f8);
+@include button('default',#ababab,#d4d4d4);
