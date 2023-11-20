@@ -3,7 +3,6 @@ import { Cell, CellDocument } from "./schema/cell.schema";
 import { Model, ObjectId } from "mongoose";
 
 
-
 export class CellService{
 
     constructor(
@@ -39,6 +38,4 @@ export class CellService{
 
         return cell
     }
-    
-
 }
