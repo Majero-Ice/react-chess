@@ -6,7 +6,7 @@ async function bootstrap() {
   const PORT = process.env.PORT
   app.enableCors({
     origin: [
-      'https://react-chess-production-4f5b.up.railway.app/socket.io/?EIO=4&transport=polling&t=OloXwt2'
+      'https://react-chess-production-4f5b.up.railway.app'
     ],
     methods: ["GET", "POST","DELETE"],
     credentials: true,
