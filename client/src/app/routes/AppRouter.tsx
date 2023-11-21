@@ -2,7 +2,7 @@ import { Navigate, Route, Routes, useParams, } from "react-router-dom";
 import { RouteNames,privateRoutes, publicRoutes } from "./routes";
 import WithAuth from "./WithAuth";
 import { AuthProvider } from "../providers/AuthProvider";
-import { SocketContext, socket } from "../providers/SocketContext";
+import { SocketContext, socket } from "../context/SocketContext";
 
 
 const AppRouter = () => {

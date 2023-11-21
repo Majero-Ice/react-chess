@@ -7,7 +7,7 @@ import { Board } from '../../entries/Board/Board';
 import Loader from '../../shared/UI/Loader/Loader';
 import BoardComponent from '../../widgets/BoardComponent/BoardComponent';
 import { Player } from '../../entries/Player/Player';
-import { SocketContext } from '../../app/providers/SocketContext';
+import { SocketContext } from '../../app/context/SocketContext';
 import { RouteNames } from '../../app/routes/routes';
 import { getBoardData, getPlayerData, getPlayersFormLocalStorage } from '../../shared/lib/responses';
 import { Color } from '../../entries/Cell/color';

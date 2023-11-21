@@ -7,7 +7,7 @@ import { Color } from '../../entries/Cell/color';
 import { Figure } from '../../entries/Figures/Figure';
 import { Player } from '../../entries/Player/Player';
 import PlayerPanel from '../PlayerPanel/PlayerPanel';
-import { SocketContext } from '../../app/providers/SocketContext';
+import { SocketContext } from '../../app/context/SocketContext';
 import { changeColor } from '../../shared/lib/board';
 import Modal from '../../shared/UI/Modal/Modal';
 import Button from '../../shared/UI/Button/Button';

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { io } from "socket.io-client";
+import { Server } from "../config";
 
-
-export const socket = io('http://localhost:5000')
+export const socket = io(Server.SERVER_URL)
 export const SocketContext = createContext(socket)
