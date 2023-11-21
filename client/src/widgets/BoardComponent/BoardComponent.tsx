@@ -87,7 +87,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
 
     const click = useCallback((cell:Cell) =>{
         if(selected && cell.available){
-            addLostFigure(cell,state.gameMode === 'online' || !state)
+            addLostFigure(cell,!state || state.gameMode === 'online')
             socket.emit('move',{id:selected.figure?._id,x:cell.x,y:cell.y})
             selected.moveFigure(cell)
             setCurrentPlayer(prev => changeColor(prev))
