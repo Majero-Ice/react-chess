@@ -47,7 +47,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
     
 
     useEffect(() =>{
-        if(!state.gameMode || state.gameMode === 'online' ){
+        if(!state || state.gameMode === 'online' ){
             socket.on('onMove',onMoveHandler)
             localStorage.setItem('gameId',id ?? '')
             return () =>{
@@ -87,7 +87,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
 
     const click = useCallback((cell:Cell) =>{
         if(selected && cell.available){
-            addLostFigure(cell,state.gameMode === 'online' || !state.gameMode)
+            addLostFigure(cell,state.gameMode === 'online' || !state)
             socket.emit('move',{id:selected.figure?._id,x:cell.x,y:cell.y})
             selected.moveFigure(cell)
             setCurrentPlayer(prev => changeColor(prev))
@@ -95,7 +95,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
             setSelected(null)
             localStorage.setItem('currentPlayer',changeColor(currentPlayer))
         }else if(
-            ((user?.color === cell.figure?.color && (state.gameMode === 'online' || !state.gameMode) && user?.color === currentPlayer) ||
+            ((user?.color === cell.figure?.color && (state.gameMode === 'online' || !state) && user?.color === currentPlayer) ||
             (currentPlayer === cell.figure?.color && state.gameMode === 'offline')) 
          ){
             setSelected(cell)
