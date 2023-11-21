@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import styles from './game.module.scss'
 import { useAuth } from '../../shared/lib/hooks/useAuth';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { BoardData, changeColor, createBoard, getFigureClass, randomColor } from '../../shared/lib/board';
+import { BoardData,createBoard, getFigureClass} from '../../shared/lib/board';
 import { Board } from '../../entries/Board/Board';
 import Loader from '../../shared/UI/Loader/Loader';
 import BoardComponent from '../../widgets/BoardComponent/BoardComponent';
