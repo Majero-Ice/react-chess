@@ -10,7 +10,6 @@ interface AuthProviderProps{
 interface IValue{
     userName:string 
     opponentName:string
-    socket:Socket
     getOpponent: (newOpponent:string,cb:() =>any) => void
     getUser: (newUser:string,cb:() =>any) => void
 }
@@ -21,7 +20,6 @@ export const AuthProvider:FC<AuthProviderProps> = ({children}:PropsWithChildren<
 
     const [userName,setUserName] = useState<string>('')
     const [opponentName,setOpponentName] = useState<string>('')
-    const socket = useRef(io('http://localhost:5000'))
 
     
 
@@ -35,7 +33,7 @@ export const AuthProvider:FC<AuthProviderProps> = ({children}:PropsWithChildren<
         cb()
     }
 
-    const value:IValue = {userName,opponentName,socket:socket.current,getOpponent,getUser}
+    const value:IValue = {userName,opponentName,getOpponent,getUser}
 
 
     return <AuthContext.Provider value={value}>

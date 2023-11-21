@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useParams, } from "react-router-dom";
+import { Navigate, Route, Routes} from "react-router-dom";
 import { RouteNames,privateRoutes, publicRoutes } from "./routes";
 import WithAuth from "./WithAuth";
 import { AuthProvider } from "../providers/AuthProvider";

@@ -20,7 +20,7 @@ const Game = () => {
     const location = useLocation()
     const socket = useContext(SocketContext)
     const {id} = useParams()
-    const [board,setBoard] = useState(new Board(id ?? '',location.state.gameMode))
+    const [board,setBoard] = useState(new Board(id ?? '',location.state?.gameMode as string))
     const [loader,setLoader] = useState(true)
     const [user,setUser] = useState<Player | null>(null)
     const [opponent,setOpponent] = useState<Player | null>(null)
@@ -28,8 +28,8 @@ const Game = () => {
     
 
     useEffect(() =>{
-
-        if(location.state.gameMode === 'offline'){
+        const gameMode = location.state?.gameMode ? location.state.gameMode : 'online'
+        if(gameMode === 'offline'){
             setLoader(false)
             setUser(new Player(userName ? userName : 'Player', Color.WHITE,'',[]))
             setOpponent(new Player(opponentName ? opponentName :'Player', Color.BLACK,'',[]))
@@ -95,7 +95,7 @@ const Game = () => {
     }
 
     useEffect(()=>{
-        if(location.state.gameMode === 'online'){
+        if(location.state?.gameMode === 'online' || !location.state?.gameMode){
             socket.on('onJoin',onJoinHandler)
             socket.on('onOpponent',onOpponentHandler)
             socket.on('onAddPlayer',onAddPlayerHandler)

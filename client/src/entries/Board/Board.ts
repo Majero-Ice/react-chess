@@ -9,11 +9,11 @@ export class Board {
     cells:Cell[][] = []
     currentPlayer:Color = Color.WHITE
     id:string
-    gameMode:string
+    gameMode:string | null
 
-    constructor(id:string, gameMode:string){
+    constructor(id:string, gameMode:string | null){
         this.id = id
-        this.gameMode = gameMode
+        this.gameMode = gameMode ? gameMode : 'online'
         if(this.gameMode === 'offline'){
             this.createCells()
             this.setFigures()
