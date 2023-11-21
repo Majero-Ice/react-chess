@@ -47,7 +47,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
     
 
     useEffect(() =>{
-        if(state.gameMode === 'online' || !state.gameMode){
+        if(!state.gameMode || state.gameMode === 'online' ){
             socket.on('onMove',onMoveHandler)
             localStorage.setItem('gameId',id ?? '')
             return () =>{
