@@ -6,7 +6,7 @@ import { GatewayModule } from './Gateway/gateway.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://admin:admin@cluster0.idcdkc5.mongodb.net/?retryWrites=true&w=majority'),
+    MongooseModule.forRoot(process.env.MONGO_ULI),
     BoardModule,
     GatewayModule
     
