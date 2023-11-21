@@ -95,7 +95,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
             setSelected(null)
             localStorage.setItem('currentPlayer',changeColor(currentPlayer))
         }else if(
-            ((user?.color === cell.figure?.color && (state.gameMode === 'online' || !state) && user?.color === currentPlayer) ||
+            ((user?.color === cell.figure?.color && (!state || state.gameMode === 'online') && user?.color === currentPlayer) ||
             (currentPlayer === cell.figure?.color && state.gameMode === 'offline')) 
          ){
             setSelected(cell)
