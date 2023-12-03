@@ -50,7 +50,6 @@ export const setFiguresToCells = (figures:Figure[],cells:Cell[][],board:Board) =
     return cells
 }
 
-
 export const getFigureClass = (figure:Figure,board:Board) =>{
     switch(figure.name){
         case FigureNames.BISHOP:

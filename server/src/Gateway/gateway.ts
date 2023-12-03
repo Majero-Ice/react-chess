@@ -41,9 +41,10 @@ export class Gateway{
     
     @SubscribeMessage('add-figure')        
         async addFigure(
-            @MessageBody() {playerId,figureId}
+            @MessageBody() {gameId,playerId,figureId}
         ){
             await this.playerService.addLostFigure(playerId,figureId)
+            await this.boardService.removeFigure(gameId,figureId)
         }
 
     @SubscribeMessage('get-opponent')
@@ -55,7 +56,6 @@ export class Gateway{
             const board = await this.boardService.getOne(gameId)
             console.log(board.players)
             const [opponentId] = board.players.filter(id => String(id) !== userId)
-            console.log(String(opponentId))
             const opponent = await this.playerService.getPlayer(opponentId as ObjectId)
 
             this.server.to(client.id).emit('onOpponent',opponent) 

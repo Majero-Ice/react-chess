@@ -24,6 +24,7 @@ interface BoardComponentProps{
 
 }
 
+
 const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) => {
 
     const socket = useContext(SocketContext)
@@ -79,7 +80,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
             playerId = opponent?._id as string
         }
         if(emit){
-            socket.emit('add-figure',{figureId:cell.figure._id,playerId})
+            socket.emit('add-figure',{gameId:id,figureId:cell.figure._id,playerId})
         }
     }
 

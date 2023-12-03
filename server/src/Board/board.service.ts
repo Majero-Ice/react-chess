@@ -35,9 +35,14 @@ export class BoardService{
         if(!board.players.length){
             board.players = playersId
             await board.save()
-        }
+        }    
+    }
 
-        
+    async removeFigure(gameId:string,figureId:string){
+        const board = await this.getOne(gameId)
+        const figures = board.figures.filter(figure => String(figure) !== figureId)
+        board.figures = figures
+        await board.save()
     }
 
     async getOne(gameId:string){
@@ -50,8 +55,7 @@ export class BoardService{
         const board = await this.boardModel.findById(boardId)
         const {cells} = await board.populate('cells')
         const {figures} = await board.populate('figures')
-        return {cells,figures,players:board.players}
-        
+        return {cells,figures,players:board.players} 
     }
 
 }

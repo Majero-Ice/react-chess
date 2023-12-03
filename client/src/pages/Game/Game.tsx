@@ -11,6 +11,7 @@ import { SocketContext } from '../../app/context/SocketContext';
 import { RouteNames } from '../../app/routes/routes';
 import { getBoardData, getPlayerData, getPlayersFormLocalStorage } from '../../shared/lib/responses';
 import { Color } from '../../entries/Cell/color';
+import { useGameData } from '../../shared/lib/hooks/useGameData';
 
 
 const Game = () => {
@@ -20,52 +21,13 @@ const Game = () => {
     const location = useLocation()
     const socket = useContext(SocketContext)
     const {id} = useParams()
-    const [board,setBoard] = useState(new Board(id ?? '',location.state?.gameMode as string))
     const [loader,setLoader] = useState(true)
     const [user,setUser] = useState<Player | null>(null)
     const [opponent,setOpponent] = useState<Player | null>(null)
     const [usersAmount,setUsersAmount] = useState(0)
-    
+    const board = useGameData(setUser,setOpponent,setLoader)
 
-    useEffect(() =>{
-        const gameMode = location.state?.gameMode ? location.state.gameMode : 'online'
-        if(gameMode === 'offline'){
-            setLoader(false)
-            setUser(new Player(userName ? userName : 'Player', Color.WHITE,'',[]))
-            setOpponent(new Player(opponentName ? opponentName :'Player', Color.BLACK,'',[]))
-            socket.disconnect()
-        }else{
-            const {userId,opponentId,gameId} = getPlayersFormLocalStorage()
-       if( gameId && gameId === id){
-        getPlayerData(userId as string,({_id,color,lostFigures,username}:Player) =>{
-            const figures = lostFigures.map(figure => getFigureClass(figure,board))
-            const user = new Player(username,color,_id,figures)
-            setUser(user)
-        },() =>{navigate(RouteNames.LOGIN,{state:{from:location},replace:true}); return null})
-        if(opponentId){
-            getPlayerData(opponentId,({_id,color,lostFigures,username}:Player) =>{
-                const figures = lostFigures.map(figure => getFigureClass(figure,board))
-                const opponent = new Player(username,color,_id,figures)
-                setOpponent(opponent)
-            },() =>{navigate(RouteNames.LOGIN,{state:{from:location},replace:true}); return null})
-        }
-        getBoardData(id ?? '',(boardData:BoardData) =>{
-            const newBoard = createBoard(boardData,id ?? '')
-            setBoard(newBoard)
-            socket.emit('join-player',{gameId:id,username:userName})
-         }) 
-       }else if(gameId || !userName){
-        navigate(RouteNames.LOGIN,{state:{from:location},replace:true})
-    }else{
-        getBoardData(id ?? '',(boardData:BoardData) =>{
-            const newBoard = createBoard(boardData,id ?? '')
-            setBoard(newBoard)
-            socket.emit('join-player',{gameId:id,username:userName})
-         }) 
-    }
-        }
-        
-    },[])
+
     useEffect(() =>{
         if(usersAmount === 2 && user && !opponent){
             socket.emit('get-opponent',{gameId:id,userId:user._id})
@@ -105,7 +67,7 @@ const Game = () => {
                 socket.off('onOpponent',onOpponentHandler)
             }
         }
-    },[socket,user])
+    },[socket,user,opponent])
 
 
     return (
