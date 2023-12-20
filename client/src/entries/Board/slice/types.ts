@@ -4,7 +4,10 @@ import { Color } from "../../Cell/color"
 export interface BoardState{
     id:string,
     currentPlayer:Color,
-    gameMode:'online' | 'offline'
+    gameMode:GameMode,
+}
 
-
+export enum GameMode{
+    ONLINE = 'online',
+    OFFLINE = 'offline'
 }

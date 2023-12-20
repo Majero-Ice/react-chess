@@ -1,24 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
 import styles from './game.module.scss'
-import { useAuth } from '../../shared/lib/hooks/useAuth';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { BoardData,createBoard, getFigureClass} from '../../shared/lib/board';
-import { Board } from '../../entries/Board/Board';
+import { getFigureClass} from '../../shared/lib/board';
 import Loader from '../../shared/UI/Loader/Loader';
 import BoardComponent from '../../widgets/BoardComponent/BoardComponent';
 import { Player } from '../../entries/Player/Player';
 import { SocketContext } from '../../app/context/SocketContext';
-import { RouteNames } from '../../app/routes/routes';
-import { getBoardData, getPlayerData, getPlayersFormLocalStorage } from '../../shared/lib/responses';
-import { Color } from '../../entries/Cell/color';
 import { useGameData } from '../../shared/lib/hooks/useGameData';
+import { useTypedSelector } from '../../shared/lib/hooks/useTypedSelector';
+import { GameMode } from '../../entries/Board/slice/types';
 
 
 const Game = () => {
 
-    const {userName,opponentName} = useAuth()
-    const navigate = useNavigate()
-    const location = useLocation()
     const socket = useContext(SocketContext)
     const {id} = useParams()
     const [loader,setLoader] = useState(true)
@@ -26,6 +20,7 @@ const Game = () => {
     const [opponent,setOpponent] = useState<Player | null>(null)
     const [usersAmount,setUsersAmount] = useState(0)
     const board = useGameData(setUser,setOpponent,setLoader)
+    const {gameMode} = useTypedSelector(state => state.boardSlice)
 
 
     useEffect(() =>{
@@ -57,7 +52,7 @@ const Game = () => {
     }
 
     useEffect(()=>{
-        if(location.state?.gameMode === 'online' || !location.state?.gameMode){
+        if(gameMode === GameMode.ONLINE){
             socket.on('onJoin',onJoinHandler)
             socket.on('onOpponent',onOpponentHandler)
             socket.on('onAddPlayer',onAddPlayerHandler)

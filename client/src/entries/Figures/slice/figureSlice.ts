@@ -7,11 +7,11 @@ const initialState:FigureState ={
 
 export const figureSlice = createSlice({
     initialState,
-    name:'figureState',
+    name:'figure',
     reducers:{
 
     }
 })
 
-export const figureSliceActions = figureSlice.actions
+export const figureActions = figureSlice.actions
 export default figureSlice.reducer

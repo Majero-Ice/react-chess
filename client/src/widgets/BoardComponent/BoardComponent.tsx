@@ -11,9 +11,11 @@ import { SocketContext } from '../../app/context/SocketContext';
 import { changeColor } from '../../shared/lib/board';
 import Modal from '../../shared/UI/Modal/Modal';
 import Button from '../../shared/UI/Button/Button';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { RouteNames } from '../../app/routes/routes';
 import { useVictory } from '../../shared/lib/hooks/useVictory';
+import { useTypedSelector } from '../../shared/lib/hooks/useTypedSelector';
+import { GameMode } from '../../entries/Board/slice/types';
 
 
 interface BoardComponentProps{
@@ -33,8 +35,8 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
     const [selected,setSelected] = useState<Cell | null>(null)
     const [currentPlayer,setCurrentPlayer] = useState<Color>(localStorage.getItem('currentPlayer') as Color ?? Color.WHITE)
     const {id} = useParams()
-    const {state} = useLocation()
     const {isVictory,isCheck} = useVictory(board)
+    const {gameMode} = useTypedSelector(state => state.boardSlice)
 
     const onMoveHandler = useCallback(({oldX,oldY,x,y}:any) =>{
         const oldCell = board.getCell(oldX,oldY)
@@ -48,7 +50,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
     
 
     useEffect(() =>{
-        if(!state || state.gameMode === 'online' ){
+        if(gameMode === GameMode.ONLINE ){
             socket.on('onMove',onMoveHandler)
             localStorage.setItem('gameId',id ?? '')
             return () =>{
@@ -88,7 +90,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
 
     const click = useCallback((cell:Cell) =>{
         if(selected && cell.available){
-            addLostFigure(cell,!state || state.gameMode === 'online')
+            addLostFigure(cell,gameMode === GameMode.ONLINE)
             socket.emit('move',{id:selected.figure?._id,x:cell.x,y:cell.y})
             selected.moveFigure(cell)
             setCurrentPlayer(prev => changeColor(prev))
@@ -96,8 +98,8 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
             setSelected(null)
             localStorage.setItem('currentPlayer',changeColor(currentPlayer))
         }else if(
-            ((user?.color === cell.figure?.color && (!state || state.gameMode === 'online') && user?.color === currentPlayer) ||
-            (currentPlayer === cell.figure?.color && state.gameMode === 'offline')) 
+            ((user?.color === cell.figure?.color && (gameMode === GameMode.ONLINE) && user?.color === currentPlayer) ||
+            (currentPlayer === cell.figure?.color && gameMode === GameMode.OFFLINE)) 
          ){
             setSelected(cell)
         }

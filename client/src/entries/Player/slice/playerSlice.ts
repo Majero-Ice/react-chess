@@ -9,11 +9,11 @@ const initialState:PlayerState ={
 
 const playerSlice = createSlice({
     initialState,
-    name:'playerSlice',
+    name:'player',
     reducers:{
 
     }
 })
 
-export const playerSliceActions = playerSlice.actions
+export const playerActions = playerSlice.actions
 export default playerSlice.reducer

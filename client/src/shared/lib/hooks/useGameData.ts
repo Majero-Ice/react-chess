@@ -8,6 +8,8 @@ import { BoardData, createBoard, getFigureClass } from "../board"
 import { getBoardData, getPlayerData, getPlayersFormLocalStorage } from "../responses"
 import { Board } from "../../../entries/Board/Board"
 import { Color } from "../../../entries/Cell/color"
+import { useTypedSelector } from "./useTypedSelector"
+import { GameMode } from "../../../entries/Board/slice/types"
 
 
 export const useGameData = (
@@ -22,10 +24,11 @@ export const useGameData = (
     const {id} = useParams()
     const socket = useContext(SocketContext)
     const [board,setBoard] = useState(new Board(id ?? '',location.state?.gameMode as string))
+    const {gameMode} = useTypedSelector(state => state.boardSlice)
 
     useEffect(() =>{
-        const gameMode = location.state?.gameMode ? location.state.gameMode : 'online'
-        if(gameMode === 'offline'){
+        //const gameMode = location.state?.gameMode ? location.state.gameMode : 'online'
+        if(gameMode === GameMode.OFFLINE){
             setLoader(false)
             setUser(new Player(userName ? userName : 'Player', Color.WHITE,'',[]))
             setOpponent(new Player(opponentName ? opponentName :'Player', Color.BLACK,'',[]))

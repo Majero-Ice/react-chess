@@ -12,5 +12,5 @@ const cellSlice = createSlice({
     reducers:{}
 })
 
-export const cellSliceActions = cellSlice.actions
+export const cellActions = cellSlice.actions
 export default cellSlice.reducer
