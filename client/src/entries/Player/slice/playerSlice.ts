@@ -1,17 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { PlayerState } from "./types";
+import { Player } from "../Player";
 
 
 const initialState:PlayerState ={
     user:null,
-    opponent:null
+    opponent:null,
+    playersAmount:0
 }
 
 const playerSlice = createSlice({
     initialState,
     name:'player',
     reducers:{
-
+        setUser(state,action:PayloadAction<Player>){
+            state.user = action.payload
+        },
+        setOpponent(state,action:PayloadAction<Player>){
+            state.opponent = action.payload
+        },
+        joinPlayer(state){
+            if(state.playersAmount < 2){
+                state.playersAmount++
+            }
+        }
     }
 })
 

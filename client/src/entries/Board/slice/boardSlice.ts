@@ -1,26 +1,27 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { BoardState, GameMode } from "./types";
 import { Color } from "../../Cell/color";
+import { Board } from "../Board";
 
 
 const initialState:BoardState ={
     id:'',
     currentPlayer:Color.WHITE,
     gameMode:GameMode.OFFLINE,
+    board:null
 }
 
-const boardSlice = createSlice({
+export const boardSlice = createSlice({
     initialState,
     name:'board',
     reducers:{
-        create:(() =>{
-            
-        }),
-        setGameMode:((state,action:PayloadAction<GameMode>) =>{
+        create(state,action:PayloadAction<Board>){
+            state.board = action.payload
+        },
+        setGameMode(state,action:PayloadAction<GameMode>){
             state.gameMode = action.payload
-        })
+        }
     }
 })
-
-export const boardActions = boardSlice.actions
 export default boardSlice.reducer
+export const boardActions = boardSlice.actions

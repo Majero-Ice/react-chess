@@ -24,7 +24,7 @@ const PlayerForm = () => {
         getOpponent(opponentName.value,() =>{})
         getUser(name,() =>navigate(RouteNames.GAME + gameId,{replace:true}))
         localStorage.clear()
-        if(location.state.from){
+        if(location.state){
             navigate(location.state.from.pathname,{replace:true})
         }
           

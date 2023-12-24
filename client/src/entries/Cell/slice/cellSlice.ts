@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { CellState } from "./types";
+import { Cell } from "../Cell";
 
 
 const initialState:CellState ={
@@ -8,8 +9,12 @@ const initialState:CellState ={
 
 const cellSlice = createSlice({
     initialState,
-    name:'cellSlice',
-    reducers:{}
+    name:'cell',
+    reducers:{
+        setCells(state,action:PayloadAction<Cell[][]>){
+            state.cells = action.payload
+        }
+    }
 })
 
 export const cellActions = cellSlice.actions

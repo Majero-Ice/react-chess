@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import styles from './game.module.scss'
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getFigureClass} from '../../shared/lib/board';
 import Loader from '../../shared/UI/Loader/Loader';
 import BoardComponent from '../../widgets/BoardComponent/BoardComponent';
@@ -9,6 +9,7 @@ import { SocketContext } from '../../app/context/SocketContext';
 import { useGameData } from '../../shared/lib/hooks/useGameData';
 import { useTypedSelector } from '../../shared/lib/hooks/useTypedSelector';
 import { GameMode } from '../../entries/Board/slice/types';
+import { useActions } from '../../shared/lib/hooks/useActions';
 
 
 const Game = () => {
@@ -21,6 +22,7 @@ const Game = () => {
     const [usersAmount,setUsersAmount] = useState(0)
     const board = useGameData(setUser,setOpponent,setLoader)
     const {gameMode} = useTypedSelector(state => state.boardSlice)
+    const {startConnecting} = useActions()
 
 
     useEffect(() =>{
@@ -28,6 +30,7 @@ const Game = () => {
             socket.emit('get-opponent',{gameId:id,userId:user._id})
         }
 
+        startConnecting()
     },[usersAmount,user,opponent,socket])
 
     const onJoinHandler = (usersAmount:number) =>{

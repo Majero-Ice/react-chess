@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, useEffect} from 'react';
 import Button from '../../shared/UI/Button/Button';
 import styles from './gameModes.module.scss'
 import { useNavigate } from 'react-router-dom';
