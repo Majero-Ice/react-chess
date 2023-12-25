@@ -1,5 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Socket } from "socket.io-client";
+import { createSlice } from "@reduxjs/toolkit";
 import { socketState } from "./types";
 
 const initialState:socketState ={

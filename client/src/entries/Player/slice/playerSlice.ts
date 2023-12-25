@@ -1,12 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { PlayerState } from "./types";
+import { PlayerState, addLostFigurePayload } from "./types";
 import { Player } from "../Player";
+import { Color } from "../../Cell/color";
 
 
 const initialState:PlayerState ={
     user:null,
     opponent:null,
-    playersAmount:0
+    playersAmount:0,
+    currentPlayer:Color.WHITE
 }
 
 const playerSlice = createSlice({
@@ -23,6 +25,14 @@ const playerSlice = createSlice({
             if(state.playersAmount < 2){
                 state.playersAmount++
             }
+        },
+        addLostFigure(state,action:PayloadAction<addLostFigurePayload>){
+            action.payload.isUser 
+            ? state.user?.lostFigures.push(action.payload.figure) 
+            : state.opponent?.lostFigures.push(action.payload.figure)
+        },
+        setCurrentPlayer(state,action:PayloadAction<Color>){
+            state.currentPlayer = action.payload
         }
     }
 })

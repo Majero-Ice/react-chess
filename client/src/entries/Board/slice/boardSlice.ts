@@ -1,12 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { BoardState, GameMode } from "./types";
-import { Color } from "../../Cell/color";
 import { Board } from "../Board";
 
 
 const initialState:BoardState ={
     id:'',
-    currentPlayer:Color.WHITE,
     gameMode:GameMode.OFFLINE,
     board:null
 }

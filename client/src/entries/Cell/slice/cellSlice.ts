@@ -4,7 +4,8 @@ import { Cell } from "../Cell";
 
 
 const initialState:CellState ={
-    cells:[]
+    cells:[],
+    selected:null
 }
 
 const cellSlice = createSlice({
@@ -13,6 +14,9 @@ const cellSlice = createSlice({
     reducers:{
         setCells(state,action:PayloadAction<Cell[][]>){
             state.cells = action.payload
+        },
+        setSelected(state, action:PayloadAction<Cell | null>){
+            state.selected = action.payload
         }
     }
 })

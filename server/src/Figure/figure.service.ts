@@ -28,7 +28,7 @@ export class FigureService{
         figure.x = x
         figure.y = y
         await figure.save()
-        const moveData = {oldX,oldY,x,y}
+        const moveData = {oldX,oldY,x,y,id}
 
         return moveData
     }

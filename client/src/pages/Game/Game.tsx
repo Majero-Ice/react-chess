@@ -29,7 +29,6 @@ const Game = () => {
         if(usersAmount === 2 && user && !opponent){
             socket.emit('get-opponent',{gameId:id,userId:user._id})
         }
-
         startConnecting()
     },[usersAmount,user,opponent,socket])
 

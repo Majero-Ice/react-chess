@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { FigureState } from "./types";
+import { FigureState, MoveFigurePayload, RemoveFigurePayload } from "./types";
 import { Figure } from "../Figure";
 
 const initialState:FigureState ={
@@ -13,8 +13,19 @@ export const figureSlice = createSlice({
         setFigures(state,action:PayloadAction<Figure[]>){
             state.figures = action.payload
         },
-        removeFigure(state,action:PayloadAction<string>){
-            state.figures.filter(figure => figure._id !== action.payload)
+        removeFigure(state,action:PayloadAction<RemoveFigurePayload>){
+            const {figureId} = action.payload
+            state.figures.filter(figure => figure._id !== figureId)
+        },
+        moveFigure(state,action:PayloadAction<MoveFigurePayload>){
+            const {id,x,y} = action.payload
+            state.figures.forEach((figure) =>{
+                if(figure._id !== id){
+                    return
+                }
+                figure.x = x
+                figure.y = y
+            })            
         }
     }
 })

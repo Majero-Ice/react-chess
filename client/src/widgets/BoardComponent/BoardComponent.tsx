@@ -16,6 +16,7 @@ import { RouteNames } from '../../app/routes/routes';
 import { useVictory } from '../../shared/lib/hooks/useVictory';
 import { useTypedSelector } from '../../shared/lib/hooks/useTypedSelector';
 import { GameMode } from '../../entries/Board/slice/types';
+import { useActions } from '../../shared/lib/hooks/useActions';
 
 
 interface BoardComponentProps{
@@ -37,11 +38,12 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
     const {id} = useParams()
     const {isVictory,isCheck} = useVictory(board)
     const {gameMode} = useTypedSelector(state => state.boardSlice)
+    const {addLostFigure} = useActions()
 
     const onMoveHandler = useCallback(({oldX,oldY,x,y}:any) =>{
         const oldCell = board.getCell(oldX,oldY)
         const newCell = board.getCell(x,y)
-        addLostFigure(newCell,false)
+        addLostFigureOld(newCell,false)
         oldCell.moveFigure(newCell)
         setCurrentPlayer(prev => changeColor(prev))
         localStorage.setItem('currentPlayer',changeColor(currentPlayer))
@@ -69,16 +71,18 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
         updateBoard()
     },[selected])
 
-    const addLostFigure = (cell:Cell,emit:boolean) =>{
+    const addLostFigureOld = (cell:Cell,emit:boolean) =>{
         if(!cell.figure){
             return null
         }   
         let playerId = ''
         if(cell.figure.color !== user?.color){
             user?.lostFigures.push(cell.figure as Figure)
+            addLostFigure({figure:cell.figure,isUser:true})
             playerId = user?._id as string
         }else{
             opponent?.lostFigures.push(cell.figure as Figure)
+            addLostFigure({figure:cell.figure,isUser:false})
             playerId = opponent?._id as string
         }
         if(emit){
@@ -90,7 +94,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
 
     const click = useCallback((cell:Cell) =>{
         if(selected && cell.available){
-            addLostFigure(cell,gameMode === GameMode.ONLINE)
+            addLostFigureOld(cell,gameMode === GameMode.ONLINE)
             socket.emit('move',{id:selected.figure?._id,x:cell.x,y:cell.y})
             selected.moveFigure(cell)
             setCurrentPlayer(prev => changeColor(prev))
