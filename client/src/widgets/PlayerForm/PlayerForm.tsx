@@ -7,6 +7,7 @@ import { RouteNames } from "../../app/routes/routes";
 import { useAuth } from "../../shared/lib/hooks/useAuth";
 import { useTypedSelector } from "../../shared/lib/hooks/useTypedSelector";
 import { GameMode } from "../../entries/Board/slice/types";
+import { useActions } from "../../shared/lib/hooks/useActions";
 
 
 const PlayerForm = () => {
@@ -18,9 +19,11 @@ const PlayerForm = () => {
     const location = useLocation()
     const gameId =`/b${(+new Date()).toString(16)}`
     const {gameMode} = useTypedSelector(state => state.boardSlice)
+    const {setBoardId} = useActions()
 
     const toBoard =() =>{
         const name = username.value ? username.value : 'Player'
+        setBoardId(gameId)
         getOpponent(opponentName.value,() =>{})
         getUser(name,() =>navigate(RouteNames.GAME + gameId,{replace:true}))
         localStorage.clear()

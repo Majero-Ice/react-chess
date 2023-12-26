@@ -21,7 +21,7 @@ const playerSlice = createSlice({
         setOpponent(state,action:PayloadAction<Player>){
             state.opponent = action.payload
         },
-        joinPlayer(state){
+        joinPlayer(state,payload:PayloadAction<string>){
             if(state.playersAmount < 2){
                 state.playersAmount++
             }

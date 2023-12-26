@@ -5,7 +5,6 @@ import CellComponent from "../../features/Cell/CellComponent";
 import { Cell } from '../../entries/Cell/Cell';
 import { Color } from '../../entries/Cell/color';
 import { Figure } from '../../entries/Figures/Figure';
-import { Player } from '../../entries/Player/Player';
 import PlayerPanel from '../PlayerPanel/PlayerPanel';
 import { SocketContext } from '../../app/context/SocketContext';
 import { changeColor } from '../../shared/lib/board';
@@ -18,57 +17,22 @@ import { useTypedSelector } from '../../shared/lib/hooks/useTypedSelector';
 import { GameMode } from '../../entries/Board/slice/types';
 import { useActions } from '../../shared/lib/hooks/useActions';
 
-
-interface BoardComponentProps{
-
-    gameBoard:Board
-    user:Player
-    opponent:Player
-
-}
-
-
-const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) => {
+const BoardComponent = () => {
 
     const socket = useContext(SocketContext)
     const navigate = useNavigate()
-    const [board,setBoard] = useState<Board>(gameBoard)
+    const {board} = useTypedSelector(state =>state.boardSlice)
+    const {user,opponent,currentPlayer} = useTypedSelector(state => state.playerSlice)
+    const {cells} = useTypedSelector(state => state.cellSlice)
     const [selected,setSelected] = useState<Cell | null>(null)
-    const [currentPlayer,setCurrentPlayer] = useState<Color>(localStorage.getItem('currentPlayer') as Color ?? Color.WHITE)
     const {id} = useParams()
-    const {isVictory,isCheck} = useVictory(board)
+    const {isVictory,isCheck} = useVictory(board as Board)
     const {gameMode} = useTypedSelector(state => state.boardSlice)
     const {addLostFigure} = useActions()
 
-    const onMoveHandler = useCallback(({oldX,oldY,x,y}:any) =>{
-        const oldCell = board.getCell(oldX,oldY)
-        const newCell = board.getCell(x,y)
-        addLostFigureOld(newCell,false)
-        oldCell.moveFigure(newCell)
-        setCurrentPlayer(prev => changeColor(prev))
-        localStorage.setItem('currentPlayer',changeColor(currentPlayer))
-        updateBoard()
-    },[board,currentPlayer])
-    
 
     useEffect(() =>{
-        if(gameMode === GameMode.ONLINE ){
-            socket.on('onMove',onMoveHandler)
-            localStorage.setItem('gameId',id ?? '')
-            return () =>{
-                socket.off('onMove',onMoveHandler)    
-            }
-        }
-    },[socket])
-
-    const updateBoard = () =>{
-        const newBoard = board.getCopyBoard()
-        setBoard(newBoard)
-    }
-
-    useEffect(() =>{
-        board.getAvailableMoves(selected ?? null)
-        updateBoard()
+        board?.getAvailableMoves(selected ?? null)
     },[selected])
 
     const addLostFigureOld = (cell:Cell,emit:boolean) =>{
@@ -95,10 +59,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
     const click = useCallback((cell:Cell) =>{
         if(selected && cell.available){
             addLostFigureOld(cell,gameMode === GameMode.ONLINE)
-            socket.emit('move',{id:selected.figure?._id,x:cell.x,y:cell.y})
             selected.moveFigure(cell)
-            setCurrentPlayer(prev => changeColor(prev))
-            updateBoard()
             setSelected(null)
             localStorage.setItem('currentPlayer',changeColor(currentPlayer))
         }else if(
@@ -114,7 +75,7 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
         <CellComponent 
         cell={cell}
         key={cell._id} 
-        isCheck={isCheck && board.currentPlayer === cell.figure?.color} 
+        isCheck={isCheck && currentPlayer === cell.figure?.color} 
         selected={!!(selected === cell && selected.figure)} 
         click={() => click(cell)}/>)
 
@@ -122,12 +83,12 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
     }
 
     const getBoard = () =>{
-        const cells = board.cells.map((row:Cell[],index) =>
+        const boardCells = cells.map((row:Cell[],index) =>
             <React.Fragment key={index}>
                 {getRow(row)}
             </React.Fragment>)
 
-        return user?.color === Color.WHITE ? cells : cells.reverse()    
+        return user?.color === Color.WHITE ? boardCells : boardCells.reverse()    
     }
         
     return (
@@ -145,6 +106,6 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
         }
         </>       
     );
-});
+};
 
 export default BoardComponent;
