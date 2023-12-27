@@ -22,6 +22,9 @@ const socketMiddleware:Middleware = store =>{
             socket = io(Server.LOCAL_SERVER)
         }
         socket.on('onJoin',(usersAmount:number) =>{
+            if(usersAmount === 2 && playerSlice.user && !playerSlice.opponent){
+                socket.emit('get-opponent',{gameId:boardSlice.id,userId:playerSlice.user._id})
+            }
             if(playerSlice.opponent && usersAmount === 2){
                 store.dispatch(boardActions.setLoading(false))
             }
@@ -43,11 +46,14 @@ const socketMiddleware:Middleware = store =>{
             store.dispatch(figureActions.moveFigure({id,x,y}))
             store.dispatch(playerActions.setCurrentPlayer(changeColor(playerSlice.currentPlayer)))
             localStorage.setItem('currentPlayer',changeColor(playerSlice.currentPlayer))
+            localStorage.setItem('gameId',id ?? '')
         })
-        if(figureActions.removeFigure.match(action) && connectionEstablished){
+        if(figureActions.removeFigure.match(action)){
             const figure = figureSlice.figures.find((figure:Figure) => figure._id === action.payload.figureId)
             store.dispatch(playerActions.addLostFigure({isUser:playerSlice.user.color === figure.color,figure}))
-            socket.emit('add-figure',action.payload)
+            if(connectionEstablished){
+                socket.emit('add-figure',action.payload)
+            }
         }
         if(figureActions.moveFigure.match(action) && connectionEstablished){
             socket.emit('move',action.payload)

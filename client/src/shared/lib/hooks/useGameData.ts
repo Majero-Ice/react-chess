@@ -15,7 +15,7 @@ import { useActions } from "./useActions"
 export const useGameData = () =>{
 
     const {userName,opponentName} = useAuth()
-    const {setUser,setOpponent,setLoading,setBoard,joinPlayer} = useActions()
+    const {setUser,setOpponent,setLoading,joinPlayer,setCells,setFigures} = useActions()
     const {gameMode,board,id} = useTypedSelector(state => state.boardSlice)
     const navigate = useNavigate()
     const location = useLocation()
@@ -41,16 +41,20 @@ export const useGameData = () =>{
             },() =>{navigate(RouteNames.LOGIN,{state:{from:location},replace:true}); return null})
         }
         getBoardData(id ?? '',(boardData:BoardData) =>{
-            const newBoard = createBoard(boardData,id ?? '')
-            setBoard(newBoard)
+            const cells = createBoard(boardData,id ?? '')
+            const figures = boardData.figures.map(figure => getFigureClass(figure,new Board(id,gameMode)))
+            setFigures(figures)
+            setCells(cells)
             joinPlayer(userName)
          }) 
        }else if(gameId || !userName){
         navigate(RouteNames.LOGIN,{state:{from:location},replace:true})
     }else{
         getBoardData(id ?? '',(boardData:BoardData) =>{
-            const newBoard = createBoard(boardData,id ?? '')
-            setBoard(newBoard)
+            const cells = createBoard(boardData,id ?? '')
+            const figures = boardData.figures.map(figure => getFigureClass(figure,new Board(id,gameMode)))
+            setFigures(figures)
+            setCells(cells)
             joinPlayer(userName)
             }) 
     }

@@ -38,7 +38,7 @@ export const createBoard = (boardData:BoardData,id:string) =>{
     }
     board.cells = setFiguresToCells(boardData.figures,cells,board)
 
-    return board
+    return cells
 
 }
 
