@@ -11,7 +11,7 @@ import { boardActions } from "../../../entries/Board/slice/boardSlice";
 
 
 const socketMiddleware:Middleware = store =>{
-    let socket:Socket
+    let socket:Socket = io()
     return next => action =>{
         const boardSlice = store.getState().boardSlice
         const playerSlice = store.getState().playerSlice

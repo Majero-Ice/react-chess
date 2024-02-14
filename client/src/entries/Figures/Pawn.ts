@@ -10,8 +10,8 @@ export class Pawn extends Figure{
     
     isFirstStep:boolean = true
 
-    constructor(_id:string,x:number,y:number,color:Color,board:Board){
-        super(_id,x,y,color,board)
+    constructor(_id:string,x:number,y:number,color:Color){
+        super(_id,x,y,color)
         
         this.name = FigureNames.PAWN
         this.img =
@@ -36,15 +36,15 @@ export class Pawn extends Figure{
 
         const leftAttack = target.x === this.x - direction && target.y === this.y +direction
 
-        if (step && target.x === this.x
-            && this.board.getCell(target.x, target.y).isEmpty
-            && this.board.getCell(this.x, this.y + direction).isEmpty){
-            return true
-        }
+        // if (step && target.x === this.x
+        //     && this.board.getCell(target.x, target.y).isEmpty
+        //     && this.board.getCell(this.x, this.y + direction).isEmpty){
+        //     return true
+        // }
 
-        if ((rightAttack || leftAttack) && this.board.getCell(this.x,this.y).isEnemy(target)){
-            return true
-        }
+        // if ((rightAttack || leftAttack) && this.board.getCell(this.x,this.y).isEnemy(target)){
+        //     return true
+        // }
 
         return false    
     }

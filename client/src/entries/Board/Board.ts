@@ -2,7 +2,6 @@ import { addFigures } from "../../shared/lib/setFiguresOffline";
 import {Cell} from "../Cell/Cell";
 import {Color} from "../Cell/color";
 import { Figure } from "../Figures/Figure";
-import { FigureNames } from "../Figures/FigureNames";
 
 
 export class Board {
@@ -25,9 +24,9 @@ export class Board {
             const row:Cell[] = [] 
             for (let x = 0; x < 8; x++) {
                 if((x+y) % 2 === 0 ){ 
-                    row.push(new Cell(Math.random(),x,y,Color.WHITE,this))
+                    row.push(new Cell(Math.random(),x,y,Color.WHITE))
                 }else{
-                    row.push(new Cell(Math.random(),x,y,Color.BLACK,this))
+                    row.push(new Cell(Math.random(),x,y,Color.BLACK))
                 }
             }
             this.cells.push(row)
@@ -38,7 +37,7 @@ export class Board {
     setFigures(){
         const figures = addFigures(this)
         figures.forEach(figure =>{
-            this.cells[figure.y][figure.x].figure = figure
+            //this.cells[figure.y][figure.x].figure = figure
         })
     }
     
@@ -67,21 +66,21 @@ export class Board {
             const row = this.cells[y]
             for(let x = 0; x < row.length; x++){
                 const target = row[x]
-                if(selectedCell?.figure?.canMove(target)){
-                    const selectedCellFigure = selectedCell.figure
-                        const targetFigure = target.figure
-                        selectedCell.figure = null
-                        target.setFigure(selectedCellFigure)
-                        if(this.isKingUnderAttack(this.getKing(selectedCellFigure.color))){
-                            target.available = false
-                        }else{
-                            target.available = true
-                            res = true
-                        }
-                        selectedCell.setFigure(selectedCellFigure)
-                        target.figure = targetFigure
+                // if(selectedCell?.figure?.canMove(target)){
+                //     const selectedCellFigure = selectedCell.figure
+                //         const targetFigure = target.figure
+                //         selectedCell.figure = null
+                //         target.setFigure(selectedCellFigure)
+                //         if(this.isKingUnderAttack(this.getKing(selectedCellFigure.color))){
+                //             target.available = false
+                //         }else{
+                //             target.available = true
+                //             res = true
+                //         }
+                //         selectedCell.setFigure(selectedCellFigure)
+                //         target.figure = targetFigure
                     
-                }else
+                // }else
                 target.available = false 
             }
         }
@@ -111,9 +110,9 @@ export class Board {
             const row = this.cells[y]
             for(let x = 0; x < row.length; x++){
                 const target = row[x]
-                if(target.figure?.color === color && target.figure?.name === FigureNames.KING){
-                    return target
-                }
+                // if(target.figure?.color === color && target.figure?.name === FigureNames.KING){
+                //     return target
+                // }
             }
         }
     return null
@@ -122,19 +121,19 @@ export class Board {
     
 
     isKingUnderAttack(king:Cell | null){
-        if(!(king?.figure && king?.figure.name === FigureNames.KING)){
-            return false
-        }
-        for(let y = 0; y < this.cells.length; y++){
-            const row = this.cells[y]
-            for(let x = 0; x < row.length; x++){
-                const target = row[x]
-                if(target.figure?.canMove(king)){
-                    console.log(target)
-                    return true
-                }
-            }
-        }
+        // if(!(king?.figure && king?.figure.name === FigureNames.KING)){
+        //     return false
+        // }
+        // for(let y = 0; y < this.cells.length; y++){
+        //     const row = this.cells[y]
+        //     for(let x = 0; x < row.length; x++){
+        //         const target = row[x]
+        //         if(target.figure?.canMove(king)){
+        //             console.log(target)
+        //             return true
+        //         }
+        //     }
+        // }
         return false
     }
 

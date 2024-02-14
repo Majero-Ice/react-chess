@@ -11,25 +11,23 @@ export class Figure {
     color:Color
     name:FigureNames
     _id:string
-    board:Board
 
-    constructor(_id:string,x:number,y:number,color:Color,board:Board){
+    constructor(_id:string,x:number,y:number,color:Color){
         this._id = _id.length ? _id : String(Date.now)
         this.x = x
         this.y = y
         this.color = color
         this.name = FigureNames.FIGURE
         this.img = imgB
-        this.board = board  
 
         
 
     }
 
     canMove(target:Cell):boolean{
-        if(target.figure?.color === this.color){
-            return false   
-        }
+        // if(target.figure?.color === this.color){
+        //     return false   
+        // }
         return true
     }
 

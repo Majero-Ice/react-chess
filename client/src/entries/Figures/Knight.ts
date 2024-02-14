@@ -9,8 +9,8 @@ import { Cell } from "../Cell/Cell"
 
 export class Knight extends Figure{
     
-    constructor(_id:string,x:number,y:number,color:Color,board:Board){
-        super(_id,x,y,color,board)
+    constructor(_id:string,x:number,y:number,color:Color){
+        super(_id,x,y,color)
 
         this.name = FigureNames.KNIGHT
         this.img =

@@ -9,7 +9,7 @@ import Login from "../../pages/Login/Login"
 
 export enum RouteNames {
     START = '/start-page',
-    GAME = '/game',
+    GAME = '/game/',
     LOGIN = '/login'
 }
 export interface IRoute {
@@ -25,6 +25,6 @@ export const publicRoutes:IRoute[] = [
 ]
 
 export const privateRoutes:IRoute[] = [
-    {path:RouteNames.GAME + '/:id',component:Game},
+    {path:RouteNames.GAME + ':id',component:Game},
     {path:RouteNames.LOGIN,component:Login}
 ]

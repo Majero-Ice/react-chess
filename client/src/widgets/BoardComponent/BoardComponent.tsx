@@ -52,7 +52,8 @@ const BoardComponent = () => {
                     playerId:getPlayerId(figure) ?? ''
                 })
             }
-            moveFigure({id:selected.figure?._id ?? '',x:cell.x,y:cell.y})
+            const selectedFigure = getFigure(selected.x,selected.y)
+            moveFigure({id:selectedFigure?._id ?? '',x:cell.x,y:cell.y})
             setSelected(null)
             localStorage.setItem('currentPlayer',changeColor(currentPlayer))
         }else if(
@@ -64,14 +65,16 @@ const BoardComponent = () => {
     },[selected,board,currentPlayer])
 
     const getRow = (row:Cell[]) =>{
-        const cells = row.map((cell) =>
-        <CellComponent 
+        const cells = row.map((cell) =>{
+        const figure = getFigure(cell.x,cell.y)
+
+        return(<CellComponent 
         cell={cell}
-        figure={getFigure(cell.x,cell.y)}
+        figure={figure}
         key={cell._id} 
-        isCheck={isCheck && currentPlayer === cell.figure?.color} 
-        selected={!!(selected === cell && selected.figure)} 
-        click={() => click(cell)}/>)
+        isCheck={isCheck && currentPlayer === figure?.color} 
+        selected={!!(selected === cell)} 
+        click={() => click(cell)}/>)})
 
         return user?.color === Color.WHITE ? cells : cells.reverse()
     }

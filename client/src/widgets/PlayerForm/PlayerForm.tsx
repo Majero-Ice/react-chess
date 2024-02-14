@@ -17,7 +17,7 @@ const PlayerForm = () => {
     const {getUser,getOpponent} = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
-    const gameId =`/b${(+new Date()).toString(16)}`
+    const gameId =`b${(+new Date()).toString(16)}`
     const {gameMode} = useTypedSelector(state => state.boardSlice)
     const {setBoardId} = useActions()
 

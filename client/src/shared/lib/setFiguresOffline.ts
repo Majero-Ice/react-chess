@@ -25,35 +25,35 @@ const addPawn = (board:Board) =>{
     const pawns = []
     for(let i = 0; i < 8; i++){
         pawns.push(
-            new Pawn('',i,6,Color.WHITE,board),
-            new Pawn('',i,1,Color.BLACK,board)
+            new Pawn('',i,6,Color.WHITE),
+            new Pawn('',i,1,Color.BLACK)
             )
     }
     return pawns
 }
 const addQueen = (board:Board) =>{
-    return [new Queen('',3,7,Color.WHITE,board),
-            new Queen('',3,0,Color.BLACK,board)]
+    return [new Queen('',3,7,Color.WHITE),
+            new Queen('',3,0,Color.BLACK)]
 }
 const addKing = (board:Board) =>{
-    return [new King('',4,7,Color.WHITE,board),
-            new King('',4,0,Color.BLACK,board)]
+    return [new King('',4,7,Color.WHITE),
+            new King('',4,0,Color.BLACK)]
 }
 const addBishop = (board:Board) =>{
-    return [new Bishop('',2,7,Color.WHITE,board),
-            new Bishop('',5,7,Color.WHITE,board),
-            new Bishop('',2,0,Color.BLACK,board),
-            new Bishop('',5,0,Color.BLACK,board),]
+    return [new Bishop('',2,7,Color.WHITE),
+            new Bishop('',5,7,Color.WHITE),
+            new Bishop('',2,0,Color.BLACK),
+            new Bishop('',5,0,Color.BLACK),]
 }
 const addRook = (board:Board) =>{
-    return [new Rook('',0,7,Color.WHITE,board),
-            new Rook('',7,7,Color.WHITE,board),
-            new Rook('',7,0,Color.BLACK,board),
-            new Rook('',0,0,Color.BLACK,board),]
+    return [new Rook('',0,7,Color.WHITE),
+            new Rook('',7,7,Color.WHITE),
+            new Rook('',7,0,Color.BLACK),
+            new Rook('',0,0,Color.BLACK),]
 }
 const addKnight = (board:Board) =>{
-    return [new Knight('',1,7,Color.WHITE,board),
-            new Knight('',6,7,Color.WHITE,board),
-            new Knight('',1,0,Color.BLACK,board),
-            new Knight('',6,0,Color.BLACK,board),]
+    return [new Knight('',1,7,Color.WHITE),
+            new Knight('',6,7,Color.WHITE),
+            new Knight('',1,0,Color.BLACK),
+            new Knight('',6,0,Color.BLACK),]
 }

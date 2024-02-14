@@ -9,8 +9,8 @@ import { Cell } from "../Cell/Cell"
 
 export class Bishop extends Figure{
     
-    constructor(_id:string,x:number,y:number,color:Color,board:Board){
-        super(_id,x,y,color,board)
+    constructor(_id:string,x:number,y:number,color:Color){
+        super(_id,x,y,color)
 
         this.name = FigureNames.BISHOP
         this.img =
@@ -23,8 +23,9 @@ export class Bishop extends Figure{
         if(!super.canMove(target)){
             return false
         }
+        return true
 
-        return this.board.getCell(this.x,this.y).isEmptyDiagonal(target)
+        // return this.board.getCell(this.x,this.y).isEmptyDiagonal(target)
     }
 
 }

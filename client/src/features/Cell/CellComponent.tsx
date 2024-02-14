@@ -18,16 +18,16 @@ const CellComponent:FC<CellComponentProps> = memo(({cell,selected,click,figure})
 
     return (
         <div 
-        className={cell.figure?.name === FigureNames.KING && cell.board.isKingUnderAttack(cell) 
+        className={figure?.name === FigureNames.KING //&& cell.board.isKingUnderAttack(cell) 
             ? styles.check 
-            :  selected || (cell.available && cell.figure) 
+            :  selected || (cell.available && figure) 
             ? styles.selected 
             : cell.color === Color.BLACK 
             ? styles.black 
             : styles.white} 
         onClick={() =>click(cell)}>
             {figure ? <img src={figure?.img} alt=" " /> : ''}
-            {cell.available && !cell.figure ? <div className={styles.available}></div> : ''}
+            {cell.available && figure ? <div className={styles.available}></div> : ''}
         </div>
     );
 });

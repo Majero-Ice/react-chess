@@ -26,47 +26,50 @@ export interface BoardData{
 }
 
 export const createBoard = (boardData:BoardData,id:string) =>{
-    const board = new Board(id,'online')
     const cells:Cell[][] = []
     for (let y = 0; y < 8; y++) {
         const row:Cell[] = []
         for (let x = 0; x < 8; x++) {
             const cell = boardData.cells.find(cell => cell.x === x && cell.y === y) as Cell
-            row.push(new Cell(cell._id,x,y,cell.color,board))
+            row.push(new Cell(cell._id,x,y,cell.color))
         }
         cells.push(row)
     }
-    board.cells = setFiguresToCells(boardData.figures,cells,board)
+    //board.cells = setFiguresToCells(boardData.figures,cells,board)
 
     return cells
 
 }
 
-export const setFiguresToCells = (figures:Figure[],cells:Cell[][],board:Board) =>{
-    figures.forEach(figure =>{
-        cells[figure.y][figure.x].figure = getFigureClass(figure,board)
-    })
+export const getFigure = (figures:Figure[],x:number,y:number) =>{
+    return figures.find(figure => figure.x === x && figure.y === y) ?? null
+}
 
-    return cells
+ export const setFiguresToCells = (figures:Figure[],cells:Cell[][],board:Board) =>{
+//     figures.forEach(figure =>{
+//         cells[figure.y][figure.x].figure = getFigureClass(figure,board)
+//     })
+
+//     return cells
 }
 
 export const getFigureClass = (figure:Figure,board:Board) =>{
     switch(figure.name){
         case FigureNames.BISHOP:
-            return new Bishop(figure._id,figure.x,figure.y,figure.color,board)
+            return new Bishop(figure._id,figure.x,figure.y,figure.color)
         case FigureNames.KING:
-            return new King(figure._id,figure.x,figure.y,figure.color,board) 
+            return new King(figure._id,figure.x,figure.y,figure.color) 
         case FigureNames.KNIGHT:
-            return new Knight(figure._id,figure.x,figure.y,figure.color,board)
+            return new Knight(figure._id,figure.x,figure.y,figure.color)
         case FigureNames.PAWN:
-            return new Pawn(figure._id,figure.x,figure.y,figure.color,board)
+            return new Pawn(figure._id,figure.x,figure.y,figure.color)
         case FigureNames.QUEEN:
-            return new Queen(figure._id,figure.x,figure.y,figure.color,board)
+            return new Queen(figure._id,figure.x,figure.y,figure.color)
         case FigureNames.ROOK:
-            return new Rook(figure._id,figure.x,figure.y,figure.color,board)  
+            return new Rook(figure._id,figure.x,figure.y,figure.color)  
             
         default:
-            return new Figure(figure._id,figure.x,figure.y,figure.color,board)    
+            return new Figure(figure._id,figure.x,figure.y,figure.color)    
     }
 
 }

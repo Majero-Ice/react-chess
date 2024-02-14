@@ -9,8 +9,8 @@ import { Cell } from "../Cell/Cell"
 
 export class King extends Figure{
     
-    constructor(_id:string,x:number,y:number,color:Color,board:Board){
-        super(_id,x,y,color,board)
+    constructor(_id:string,x:number,y:number,color:Color){
+        super(_id,x,y,color)
 
         this.name = FigureNames.KING
         this.img =
@@ -41,18 +41,18 @@ export class King extends Figure{
     }
 
     willBeUnderAttack(target:Cell){
-        const prevFigure = target.figure
-        target.figure = new Figure(String(Math.random()),target.x,target.y,this.color,this.board)
-        for(let y = 0; y< this.board.cells.length; y++){
-            const row = this.board.cells[y]
-            for(let x = 0; x < row.length; x++){
-                if(row[x].isEnemy(target) && row[x].figure?.canMove(target)){
-                    target.figure = prevFigure
-                    return true
-                }
-            }
-        }
-        target.figure = prevFigure
+        // const prevFigure = target.figure
+        // target.figure = new Figure(String(Math.random()),target.x,target.y,this.color,this.board)
+        // for(let y = 0; y< this.board.cells.length; y++){
+        //     const row = this.board.cells[y]
+        //     for(let x = 0; x < row.length; x++){
+        //         if(row[x].isEnemy(target) && row[x].figure?.canMove(target)){
+        //             target.figure = prevFigure
+        //             return true
+        //         }
+        //     }
+        // }
+        // target.figure = prevFigure
 
         return false
     }
