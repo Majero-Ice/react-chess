@@ -1,6 +1,6 @@
 import axios from "axios"
 import { Player } from "../../entries/Player/Player"
-import { Server } from "../../app/config"
+import { Response } from "../../app/config"
 
 export const getPlayersFormLocalStorage = () =>{
     const userId = localStorage.getItem('userId')
@@ -16,7 +16,7 @@ export const getPlayersFormLocalStorage = () =>{
 
 export const getBoardData = async (id:string,cb:any,) =>{
     
-    const res = await axios.get(`${Server.GET_BOARD_DATA + id}`)
+    const res = await axios.get(`${process.env.REACT_APP_SERVER + Response.GET_BOARD_DATA + id}`)
     if(res.data){
         const boardData = res.data
         cb(boardData)   
@@ -28,7 +28,7 @@ export const getPlayerData = async (playerId:string,cb:any,onError:any) =>{
     if(!playerId){
         return null
     }
-    const res = await axios.get(`${Server.GET_PLAYER_DATA + playerId}`)
+    const res = await axios.get(`${process.env.REACT_APP_SERVER + Response.GET_PLAYER_DATA + playerId}`)
         if(res.data){
             const playerData:Player = res.data
             console.log(playerData)

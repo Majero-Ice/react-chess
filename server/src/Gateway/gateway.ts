@@ -8,7 +8,7 @@ import { PlayerService } from "src/Player/player.service"
 
 @WebSocketGateway({
     cors:{
-        origin:['http://localhost:3000']
+        origin:[process.env.CLIENT]
     }
 })
 export class Gateway{

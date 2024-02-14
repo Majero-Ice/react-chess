@@ -1,14 +1,20 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule} from '@nestjs/config';
 import BoardModule from './Board/board.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GatewayModule } from './Gateway/gateway.module';
 
 
+const ENV = process.env.NODE_ENV
+
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://admin:admin@cluster0.idcdkc5.mongodb.net/?retryWrites=true&w=majority&tls=true'),
+    MongooseModule.forRoot(process.env.MONGODB),
     BoardModule,
-    GatewayModule
+    GatewayModule,
+    ConfigModule.forRoot({
+      envFilePath: !ENV ? '.env' : `.env.${ENV}`
+    })
     
   ]
   
