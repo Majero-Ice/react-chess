@@ -1,8 +1,8 @@
+import { GameModes } from '../../widgets';
 import styles from './start.module.scss'
-import GameModes from '../../widgets/GameModes/GameModes';
 
 
-const Start = () => {
+export const Start = () => {
 
     return (
         <div className={styles.start}>
@@ -13,5 +13,3 @@ const Start = () => {
         </div>
     );
 };
-
-export default Start;

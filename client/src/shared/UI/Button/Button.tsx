@@ -10,7 +10,7 @@ interface ButtonProps{
 
 type ButtonTypes = 'primary' | 'default'
 
-const Button:FC<ButtonProps> = ({buttonType,onClick,children}:PropsWithChildren<ButtonProps>) => {
+export const Button:FC<ButtonProps> = ({buttonType,onClick,children}:PropsWithChildren<ButtonProps>) => {
 
     return (
         <button className={`${styles.button} ${styles[buttonType]}`} onClick={(e) => {e.preventDefault(); onClick(e)}}>
@@ -18,5 +18,3 @@ const Button:FC<ButtonProps> = ({buttonType,onClick,children}:PropsWithChildren<
         </button>
     );
 };
-
-export default Button;

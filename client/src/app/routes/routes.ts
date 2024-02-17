@@ -1,10 +1,5 @@
 import { ComponentType } from "react"
-import Game from "../../pages/Game/Game"
-import Start from "../../pages/Start/Start"
-import Login from "../../pages/Login/Login"
-
-
-
+import {GamePage,StartPage,LoginPage} from "../../pages/"
 
 
 export enum RouteNames {
@@ -12,7 +7,7 @@ export enum RouteNames {
     GAME = '/game',
     LOGIN = '/login'
 }
-export interface IRoute {
+interface IRoute {
     path:string,
     component:ComponentType
 }
@@ -21,10 +16,10 @@ export interface IRoute {
 
 
 export const publicRoutes:IRoute[] = [
-    {path:RouteNames.START,component:Start},
+    {path:RouteNames.START,component:StartPage},
 ]
 
 export const privateRoutes:IRoute[] = [
-    {path:RouteNames.GAME + '/:id',component:Game},
-    {path:RouteNames.LOGIN,component:Login}
+    {path:RouteNames.GAME + '/:id',component:GamePage},
+    {path:RouteNames.LOGIN,component:LoginPage}
 ]

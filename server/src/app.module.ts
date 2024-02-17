@@ -5,18 +5,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { GatewayModule } from './Gateway/gateway.module';
 
 
-const ENV = process.env.NODE_ENV
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGODB),
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGO_URL),
     BoardModule,
-    GatewayModule,
-    ConfigModule.forRoot({
-      envFilePath: !ENV ? '.env' : `.env.${ENV}`
-    })
-    
+    GatewayModule, 
   ]
-  
 })
 export class AppModule {}

@@ -1,22 +1,21 @@
 import { Color } from "../Cell/color"
 import { Figure } from "./Figure"
 import { FigureNames } from "./FigureNames"
-import imgB from '../../shared/assets/black-rook.png'
-import imgW from '../../shared/assets/white-rook.png'
+import {figureImages} from '../../shared'
 import { Board } from "../Board/Board"
 import { Cell } from "../Cell/Cell"
 
 
-export class Rook extends Figure{
+export class Bishop extends Figure{
     
     constructor(_id:string,x:number,y:number,color:Color,board:Board){
         super(_id,x,y,color,board)
 
-        this.name = FigureNames.ROOK
+        this.name = FigureNames.BISHOP
         this.img =
          this.color === Color.BLACK 
-            ? imgB 
-            : imgW
+            ? figureImages.blackBishop 
+            : figureImages.whiteBishop
     }
 
     canMove(target: Cell): boolean {
@@ -24,7 +23,7 @@ export class Rook extends Figure{
             return false
         }
 
-        return this.board.getCell(this.x,this.y).isEmptyVertical(target)
-                || this.board.getCell(this.x,this.y).isEmptyHorizontal(target)
+        return this.board.getCell(this.x,this.y).isEmptyDiagonal(target)
     }
+
 }

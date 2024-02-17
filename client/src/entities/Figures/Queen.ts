@@ -1,8 +1,7 @@
 import { Color } from "../Cell/color"
 import { Figure } from "./Figure"
 import { FigureNames } from "./FigureNames"
-import imgB from '../../shared/assets/black-queen.png'
-import imgW from '../../shared/assets/white-queen.png'
+import {figureImages} from '../../shared'
 import { Cell } from "../Cell/Cell"
 import { Board } from "../Board/Board"
 
@@ -15,8 +14,8 @@ export class Queen extends Figure{
         this.name = FigureNames.QUEEN
         this.img =
          this.color === Color.BLACK 
-            ? imgB 
-            : imgW
+            ? figureImages.blackQueen 
+            : figureImages.whiteQueen
     }
 
     canMove(target: Cell): boolean { 

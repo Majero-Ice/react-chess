@@ -1,13 +1,11 @@
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
-import { SocketContext } from "../../../app/context/SocketContext"
 import { useAuth } from "./useAuth"
-import { Player } from "../../../entries/Player/Player"
-import { RouteNames } from "../../../app/routes/routes"
-import { BoardData, createBoard, getFigureClass } from "../board"
+import { Player,Board,Color } from "../../../entities"
+import { RouteNames,SocketContext } from "../../../app"
+import { BoardData, createBoard, getFigureClass } from "../boardUtils"
 import { getBoardData, getPlayerData, getPlayersFormLocalStorage } from "../responses"
-import { Board } from "../../../entries/Board/Board"
-import { Color } from "../../../entries/Cell/color"
+
 
 
 export const useGameData = (

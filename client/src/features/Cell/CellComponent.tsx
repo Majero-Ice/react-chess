@@ -1,8 +1,7 @@
-import React, {FC, memo} from 'react';
-import {Color} from "../../entries/Cell/color";
+import {FC, memo} from 'react';
+import {Color, Cell, FigureNames} from "../../entities";
 import styles from './cell.module.scss'
-import { Cell } from '../../entries/Cell/Cell';
-import { FigureNames } from '../../entries/Figures/FigureNames';
+
 
 interface CellComponentProps {
     cell:Cell
@@ -11,7 +10,7 @@ interface CellComponentProps {
     click:(cell:Cell) => void
 }
 
-const CellComponent:FC<CellComponentProps> = memo(({cell,selected,click,isCheck}) => {
+export const CellComponent:FC<CellComponentProps> = memo(({cell,selected,click,isCheck}) => {
 
 
     return (
@@ -21,5 +20,3 @@ const CellComponent:FC<CellComponentProps> = memo(({cell,selected,click,isCheck}
         </div>
     );
 });
-
-export default CellComponent;

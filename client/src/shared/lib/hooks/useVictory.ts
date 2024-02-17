@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Board } from "../../../entries/Board/Board"
+import { Board } from "../../../entities"
 
 
 export const useVictory = (board:Board) =>{

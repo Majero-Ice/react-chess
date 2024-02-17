@@ -1,23 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import styles from './game.module.scss'
-import { useAuth } from '../../shared/lib/hooks/useAuth';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { BoardData,createBoard, getFigureClass} from '../../shared/lib/board';
-import { Board } from '../../entries/Board/Board';
-import Loader from '../../shared/UI/Loader/Loader';
-import BoardComponent from '../../widgets/BoardComponent/BoardComponent';
-import { Player } from '../../entries/Player/Player';
-import { SocketContext } from '../../app/context/SocketContext';
-import { RouteNames } from '../../app/routes/routes';
-import { getBoardData, getPlayerData, getPlayersFormLocalStorage } from '../../shared/lib/responses';
-import { Color } from '../../entries/Cell/color';
-import { useGameData } from '../../shared/lib/hooks/useGameData';
+import { useLocation,useParams } from 'react-router-dom';
+import {Loader,boardUtils,useGameData} from '../../shared';
+import { Player } from '../../entities';
+import { SocketContext } from '../../app';
+import { BoardComponent } from '../../widgets';
 
 
-const Game = () => {
+export const Game = () => {
 
-    const {userName,opponentName} = useAuth()
-    const navigate = useNavigate()
     const location = useLocation()
     const socket = useContext(SocketContext)
     const {id} = useParams()
@@ -43,13 +34,13 @@ const Game = () => {
     }
 
     const onAddPlayerHandler = ({username,color,_id,lostFigures}:Player) =>{
-        const figures = lostFigures.map(figure => getFigureClass(figure,board))
+        const figures = lostFigures.map(figure => boardUtils.getFigureClass(figure,board))
         const user = new Player(username,color,_id,figures)
         localStorage.setItem('userId',user._id)
         setUser(user)
     }
     const onOpponentHandler = ({username,color,_id,lostFigures}:Player) =>{
-        const figures = lostFigures.map(figure => getFigureClass(figure,board))
+        const figures = lostFigures.map(figure => boardUtils.getFigureClass(figure,board))
         const opponent = new Player(username,color,_id,figures)
         localStorage.setItem('opponentId',opponent._id)
         setOpponent(opponent)
@@ -85,5 +76,3 @@ const Game = () => {
         </div>
     );
 };
-
-export default Game;

@@ -1,9 +1,9 @@
 import { FC } from "react";
-import PlayerForm from "../../widgets/PlayerForm/PlayerForm";
+import {PlayerForm} from "../../widgets";
 import { useLocation } from "react-router-dom";
 import styles from './login.module.scss'
 
-const Login:FC = () => {
+export const Login:FC = () => {
 
     const {state} = useLocation()
 
@@ -14,5 +14,3 @@ const Login:FC = () => {
         </>
     );
 };
-
-export default Login;

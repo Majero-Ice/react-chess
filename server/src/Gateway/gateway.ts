@@ -5,14 +5,13 @@ import { BoardService } from "src/Board/board.service"
 import { FigureService } from "src/Figure/figure.service"
 import { PlayerService } from "src/Player/player.service"
 
-
 @WebSocketGateway({
     cors:{
-        origin:[process.env.CLIENT]
+        origin:['http://localhost:3000']
     }
 })
 export class Gateway{
-
+    
     constructor(
         private boardService:BoardService,
         private figureService:FigureService,

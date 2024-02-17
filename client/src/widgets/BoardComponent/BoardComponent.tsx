@@ -1,19 +1,11 @@
 import React, {FC,memo,useCallback, useContext, useEffect, useState} from 'react';
-import styles from './board.module.scss'
-import {Board} from "../../entries/Board/Board";
-import CellComponent from "../../features/Cell/CellComponent";
-import { Cell } from '../../entries/Cell/Cell';
-import { Color } from '../../entries/Cell/color';
-import { Figure } from '../../entries/Figures/Figure';
-import { Player } from '../../entries/Player/Player';
-import PlayerPanel from '../PlayerPanel/PlayerPanel';
-import { SocketContext } from '../../app/context/SocketContext';
-import { changeColor } from '../../shared/lib/board';
-import Modal from '../../shared/UI/Modal/Modal';
-import Button from '../../shared/UI/Button/Button';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { RouteNames } from '../../app/routes/routes';
-import { useVictory } from '../../shared/lib/hooks/useVictory';
+import styles from './board.module.scss'
+import {PlayerPanel} from '../PlayerPanel/PlayerPanel';
+import {Board,Cell,Color,Figure,Player} from "../../entities";
+import {CellComponent} from "../../features";
+import { SocketContext, RouteNames } from '../../app';
+import {Button,Modal,boardUtils,useVictory} from '../../shared';
 
 
 interface BoardComponentProps{
@@ -25,7 +17,7 @@ interface BoardComponentProps{
 }
 
 
-const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) => {
+export const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) => {
 
     const socket = useContext(SocketContext)
     const navigate = useNavigate()
@@ -41,8 +33,8 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
         const newCell = board.getCell(x,y)
         addLostFigure(newCell,false)
         oldCell.moveFigure(newCell)
-        setCurrentPlayer(prev => changeColor(prev))
-        localStorage.setItem('currentPlayer',changeColor(currentPlayer))
+        setCurrentPlayer(prev => boardUtils.changeColor(prev))
+        localStorage.setItem('currentPlayer',boardUtils.changeColor(currentPlayer))
         updateBoard()
     },[board,currentPlayer])
     
@@ -91,10 +83,10 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
             addLostFigure(cell,!state || state.gameMode === 'online')
             socket.emit('move',{id:selected.figure?._id,x:cell.x,y:cell.y})
             selected.moveFigure(cell)
-            setCurrentPlayer(prev => changeColor(prev))
+            setCurrentPlayer(prev => boardUtils.changeColor(prev))
             updateBoard()
             setSelected(null)
-            localStorage.setItem('currentPlayer',changeColor(currentPlayer))
+            localStorage.setItem('currentPlayer',boardUtils.changeColor(currentPlayer))
         }else if(
             ((user?.color === cell.figure?.color && (!state || state.gameMode === 'online') && user?.color === currentPlayer) ||
             (currentPlayer === cell.figure?.color && state.gameMode === 'offline')) 
@@ -133,12 +125,10 @@ const BoardComponent:FC<BoardComponentProps> = memo(({gameBoard,user,opponent}) 
         </div>
         {isVictory 
             && 
-            <Modal modal={isVictory} title={`${changeColor(currentPlayer)} Player won!`} >
+            <Modal modal={isVictory} title={`${boardUtils.changeColor(currentPlayer)} Player won!`} >
                 <Button onClick={() =>navigate(RouteNames.START,{replace:true})} buttonType='primary'>Go to start page</Button>
             </Modal>
         }
         </>       
     );
 });
-
-export default BoardComponent;

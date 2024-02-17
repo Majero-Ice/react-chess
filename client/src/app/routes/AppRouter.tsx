@@ -5,7 +5,7 @@ import { AuthProvider } from "../providers/AuthProvider";
 import { SocketContext, socket } from "../context/SocketContext";
 
 
-const AppRouter = () => {
+export const AppRouter = () => {
 
     return (
         <AuthProvider>
@@ -22,5 +22,3 @@ const AppRouter = () => {
         </AuthProvider>
     );
 };
-
-export default AppRouter;

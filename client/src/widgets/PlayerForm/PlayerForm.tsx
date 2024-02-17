@@ -1,18 +1,15 @@
 import {useLocation, useNavigate } from "react-router-dom";
-import Button from "../../shared/UI/Button/Button";
-import Input from "../../shared/UI/Input/Input";
-import { useInput } from "../../shared/lib/hooks/useInput";
-import styles from './playerForm.module.scss'
-import { RouteNames } from "../../app/routes/routes";
 import { FC } from "react";
-import { useAuth } from "../../shared/lib/hooks/useAuth";
+import {Button, Input,useAuth,useInput} from "../../shared";
+import styles from './playerForm.module.scss'
+import { RouteNames } from "../../app";
 
 
 interface PlayerFormProps{
     gameMode:'offline' | 'online'
 }
 
-const PlayerForm:FC<PlayerFormProps> = ({gameMode = 'offline'}) => {
+export const PlayerForm:FC<PlayerFormProps> = ({gameMode = 'offline'}) => {
 
     const username = useInput('')
     const opponentName = useInput('')
@@ -46,5 +43,3 @@ const PlayerForm:FC<PlayerFormProps> = ({gameMode = 'offline'}) => {
         </div>
     );
 };
-
-export default PlayerForm;

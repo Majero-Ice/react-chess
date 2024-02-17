@@ -1,10 +1,7 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import styles from "./playerPanel.module.scss"
-import { FigureNames } from "../../entries/Figures/FigureNames";
-import { figureImages } from "../../shared/lib/figureImages";
-import { Color } from "../../entries/Cell/color";
-import { Player } from "../../entries/Player/Player";
-import { changeColor } from "../../shared/lib/board";
+import { Color, Player,FigureNames } from "../../entities/";
+import { boardUtils, figureImages } from "../../shared";
 
 
 
@@ -15,12 +12,12 @@ interface PlayerPanelProps{
 
 
 
-const PlayerPanel:FC<PlayerPanelProps> = ({player,opponent}) => {
+export const PlayerPanel:FC<PlayerPanelProps> = ({player,opponent}) => {
 
     
 
     const getFigures = (name:string) => {
-        const color =  changeColor(player?.color as Color)
+        const color =  boardUtils.changeColor(player?.color as Color)
         const figures = player?.lostFigures.filter(f => f.name === name)
         const figureImg = figureImages[(color + name) as keyof typeof figureImages]
 
@@ -53,5 +50,3 @@ const PlayerPanel:FC<PlayerPanelProps> = ({player,opponent}) => {
         </>
     );
 };
-
-export default PlayerPanel;

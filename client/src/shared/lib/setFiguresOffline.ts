@@ -1,11 +1,4 @@
-import { Board } from "../../entries/Board/Board"
-import { Color } from "../../entries/Cell/color"
-import { Bishop } from "../../entries/Figures/Bishop"
-import { King } from "../../entries/Figures/King"
-import { Knight } from "../../entries/Figures/Knight"
-import { Pawn } from "../../entries/Figures/Pawn"
-import { Queen } from "../../entries/Figures/Queen"
-import { Rook } from "../../entries/Figures/Rook"
+import { Board,Color,Bishop,King,Knight,Pawn,Queen,Rook } from "../../entities"
 
 
 export const addFigures = (board:Board) =>{

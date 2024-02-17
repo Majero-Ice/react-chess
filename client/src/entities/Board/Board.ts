@@ -1,4 +1,4 @@
-import { addFigures } from "../../shared/lib/setFiguresOffline";
+import { addFigures } from "../../shared";
 import {Cell} from "../Cell/Cell";
 import {Color} from "../Cell/color";
 import { Figure } from "../Figures/Figure";

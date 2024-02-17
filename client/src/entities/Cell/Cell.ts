@@ -3,6 +3,7 @@ import {Figure} from "../Figures/Figure";
 import { Board } from "../Board/Board";
 
 
+
 export class Cell {
     x:number
     y:number

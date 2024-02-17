@@ -1,11 +1,11 @@
 import {FC} from 'react';
-import Button from '../../shared/UI/Button/Button';
-import styles from './gameModes.module.scss'
 import { useNavigate } from 'react-router-dom';
-import { RouteNames } from '../../app/routes/routes';
+import {Button} from '../../shared/';
+import styles from './gameModes.module.scss'
+import { RouteNames } from '../../app';
 
 
-const GameModes:FC = () => {
+export const GameModes:FC = () => {
 
     const navigate = useNavigate()
     const gameModeHandler = (gameMode:string) =>{
@@ -22,5 +22,3 @@ const GameModes:FC = () => {
         </div>
     );
 };
-
-export default GameModes;

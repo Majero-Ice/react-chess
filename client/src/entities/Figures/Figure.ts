@@ -1,13 +1,13 @@
 import { Cell } from "../Cell/Cell"
 import { Color } from "../Cell/color"
 import { FigureNames } from "./FigureNames"
-import imgB from '../../shared/assets/black-pawn.png'
+import {figureImages} from '../../shared'
 import { Board } from "../Board/Board"
 
 export class Figure {
     x:number
     y:number
-    img:typeof imgB
+    img:typeof figureImages.blackPawn
     color:Color
     name:FigureNames
     _id:string
@@ -19,7 +19,7 @@ export class Figure {
         this.y = y
         this.color = color
         this.name = FigureNames.FIGURE
-        this.img = imgB
+        this.img = figureImages.blackPawn
         this.board = board  
 
         

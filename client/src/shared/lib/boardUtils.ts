@@ -1,14 +1,4 @@
-import { Board } from "../../entries/Board/Board"
-import { Cell } from "../../entries/Cell/Cell"
-import { Color } from "../../entries/Cell/color"
-import { Bishop } from "../../entries/Figures/Bishop"
-import { Figure } from "../../entries/Figures/Figure"
-import { FigureNames } from "../../entries/Figures/FigureNames"
-import { King } from "../../entries/Figures/King"
-import { Knight } from "../../entries/Figures/Knight"
-import { Pawn } from "../../entries/Figures/Pawn"
-import { Queen } from "../../entries/Figures/Queen"
-import { Rook } from "../../entries/Figures/Rook"
+import { Board,Cell,Color,Bishop,Figure,FigureNames,King,Knight,Pawn,Queen,Rook } from "../../entities"
 
 
 export const randomColor = () =>{
@@ -70,5 +60,3 @@ export const getFigureClass = (figure:Figure,board:Board) =>{
     }
 
 }
-
-

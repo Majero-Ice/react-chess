@@ -9,7 +9,7 @@ interface ModalProps{
     title:string
 }
 
-const Modal:FC<ModalProps> = ({modal,setModal,children,title}:PropsWithChildren<ModalProps>) => {
+export const Modal:FC<ModalProps> = ({modal,setModal,children,title}:PropsWithChildren<ModalProps>) => {
 
     
 
@@ -26,5 +26,3 @@ const Modal:FC<ModalProps> = ({modal,setModal,children,title}:PropsWithChildren<
     
     );
 };
-
-export default Modal;

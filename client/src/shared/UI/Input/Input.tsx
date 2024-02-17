@@ -8,7 +8,7 @@ interface InputProps{
     changeHandler:(e:ChangeEvent<HTMLInputElement>) => void
 }
 
-const Input:FC<InputProps> = ({value,changeHandler,name}) => {
+export const Input:FC<InputProps> = ({value,changeHandler,name}) => {
 
     return (
         <>
@@ -16,5 +16,3 @@ const Input:FC<InputProps> = ({value,changeHandler,name}) => {
         </>
     );
 };
-
-export default Input;

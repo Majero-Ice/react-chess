@@ -1,8 +1,7 @@
 import { Color } from "../Cell/color"
 import { Figure } from "./Figure"
 import { FigureNames } from "./FigureNames"
-import imgB from '../../shared/assets/black-king.png'
-import imgW from '../../shared/assets/white-king.png'
+import {figureImages} from '../../shared'
 import { Board } from "../Board/Board"
 import { Cell } from "../Cell/Cell"
 
@@ -15,8 +14,8 @@ export class King extends Figure{
         this.name = FigureNames.KING
         this.img =
          this.color === Color.BLACK 
-            ? imgB 
-            : imgW
+            ? figureImages.blackKing 
+            : figureImages.whiteKing
     }
 
 

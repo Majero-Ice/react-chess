@@ -1,6 +1,11 @@
 import axios from "axios"
-import { Player } from "../../entries/Player/Player"
-import { Response } from "../../app/config"
+import { Player } from "../../entities"
+
+
+export enum Response{
+    GET_BOARD_DATA = `boards/create/`,
+    GET_PLAYER_DATA = 'players/'
+}
 
 export const getPlayersFormLocalStorage = () =>{
     const userId = localStorage.getItem('userId')
