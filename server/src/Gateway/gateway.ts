@@ -7,7 +7,7 @@ import { PlayerService } from "src/Player/player.service"
 
 @WebSocketGateway({
     cors:{
-        origin:['https://react-chess-client.vercel.app']
+        origin:['https://react-chess-beta.vercel.app']
     }
 })
 export class Gateway{
