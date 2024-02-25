@@ -12,8 +12,6 @@ import blackRook from '../assets/black-rook.png'
 import whiteRook from '../assets/white-rook.png'
 
 
-
-
 export const figureImages ={
     blackBishop,
     whiteBishop,
