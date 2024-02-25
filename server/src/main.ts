@@ -7,7 +7,8 @@ async function bootstrap() {
   app.enableCors({
     origin: ['https://react-chess-client.vercel.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true
+    credentials: true,
+    allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe'
   })
   await app.listen(process.env.PORT);
 }
