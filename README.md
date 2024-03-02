@@ -1,6 +1,6 @@
 # React - chess
 
-For the client side was used React and TypeScript and NestJS for the server side. MongoDB was tacken as data base.
+For the client side was used React and TypeScript and NestJS for the server side. MongoDB was tacken as a database.
 The link to Online chess:
 https://react-chess-beta.vercel.app/
 
